@@ -100,6 +100,7 @@ macro_rules! make_script {
         pub enum Script {
             $($script),+,
             Cj,
+            Vietnamese,
             Other,
         }
 
@@ -190,6 +191,8 @@ impl From<char> for Script {
             Script::Sinhala
         } else if chars::is_khmer(other) {
             Script::Khmer
+        } else if chars::is_vietnamese(other) {
+            Script::Vietnamese
         } else {
             Script::Other
         }

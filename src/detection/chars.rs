@@ -162,6 +162,32 @@ pub(crate) fn is_khmer(ch: char) -> bool {
     matches!(ch, '\u{1780}'..='\u{17FF}' | '\u{19E0}'..='\u{19FF}')
 }
 
+// Base on: http://vietunicode.sourceforge.net/charset/vietalphabet.html
+pub(crate) fn is_vietnamese(ch: char) -> bool {
+    matches!(ch,
+        '\u{00C0}'..='\u{00C3}'
+        | '\u{00C8}'..='\u{00CA}'
+        | '\u{00CC}'..='\u{00CD}'
+        | '\u{00D0}'
+        | '\u{00D2}'..='\u{00D5}'
+        | '\u{00D9}'..='\u{00DA}'
+        | '\u{00DD}'
+        | '\u{00E0}'..='\u{00E3}'
+        | '\u{00E8}'..='\u{00EA}'
+        | '\u{00EC}'..='\u{00ED}'
+        | '\u{00F2}'..='\u{00F5}'
+        | '\u{00F9}'..='\u{00FA}'
+        | '\u{00FD}'
+        | '\u{0102}'..='\u{0103}'
+        | '\u{0110}'..='\u{0111}'
+        | '\u{0128}'..='\u{0129}'
+        | '\u{0168}'..='\u{0169}'
+        | '\u{01A0}'..='\u{01B0}'
+        | '\u{1EA0}'..='\u{1EF9}'
+        | '\u{02C6}'..='\u{0323}'
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -286,5 +312,14 @@ mod tests {
         assert_eq!(is_hebrew('ת'), true);
         assert_eq!(is_hebrew('ׇ'), true);
         assert_eq!(is_hebrew('s'), false);
+    }
+
+    #[test]
+    fn test_is_vietnamese() {
+        assert_eq!(is_vietnamese('á'), true);
+        assert_eq!(is_vietnamese('ẩ'), true);
+        assert_eq!(is_vietnamese('ệ'), true);
+        assert_eq!(is_vietnamese('ừ'), true);
+        assert_eq!(is_vietnamese('å'), false);
     }
 }

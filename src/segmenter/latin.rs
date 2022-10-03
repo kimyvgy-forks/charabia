@@ -9,6 +9,7 @@ pub struct LatinSegmenter;
 
 impl Segmenter for LatinSegmenter {
     fn segment_str<'o>(&self, s: &'o str) -> Box<dyn Iterator<Item = &'o str> + 'o> {
+        println!("{:?}", s);
         Box::new(s.split_word_bounds().map(|lemma| lemma.split_inclusive('\'')).flatten())
     }
 }

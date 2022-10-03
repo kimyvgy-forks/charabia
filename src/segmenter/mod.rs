@@ -12,6 +12,8 @@ use once_cell::sync::Lazy;
 use slice_group_by::StrGroupBy;
 #[cfg(feature = "thai")]
 pub use thai::ThaiSegmenter;
+#[cfg(feature = "vietnamese")]
+pub use vietnamese::VietnameseSegmenter;
 
 use crate::detection::{Detect, Language, Script, StrDetection};
 use crate::token::Token;
@@ -25,6 +27,8 @@ mod japanese;
 mod latin;
 #[cfg(feature = "thai")]
 mod thai;
+#[cfg(feature = "vietnamese")]
+mod vietnamese;
 
 /// List of used [`Segmenter`]s linked to their corresponding [`Script`] and [`Language`].
 ///
@@ -53,6 +57,9 @@ pub static SEGMENTERS: Lazy<HashMap<(Script, Language), Box<dyn Segmenter>>> = L
         // thai segmenter
         #[cfg(feature = "thai")]
         ((Script::Thai, Language::Tha), Box::new(ThaiSegmenter) as Box<dyn Segmenter>),
+        // vietnamese segmenter
+        #[cfg(feature = "vietnamese")]
+        ((Script::Vietnamese, Language::Vie), Box::new(VietnameseSegmenter) as Box<dyn Segmenter>),
     ]
     .into_iter()
     .collect()

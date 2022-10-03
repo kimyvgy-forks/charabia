@@ -8,3 +8,4 @@ meilisearch-core/target
 /data.ms
 Cargo.lock
 .idea
+.vscode
